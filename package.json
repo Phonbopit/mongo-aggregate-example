@@ -1,6 +1,10 @@
 {
   "name": "mongo-aggregate-example",
   "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
   "dependencies": {
     "hapi": "^13.4.1",
     "joi": "^8.4.2",

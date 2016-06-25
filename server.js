@@ -26,13 +26,42 @@ server.route({
   method: 'GET',
   handler: (req, reply) => {
     Zipcode
-    .find({})
-    .limit(100)
-    .exec((err, result) => {
+    .aggregate([
+      { $group:
+        {
+          _id: { state: "$state", city: "$city" },
+          pop: { $sum: "$pop" },
+          totalCity: { $sum: 1 }
+        }
+      },
+      { $sort: { totalCity: 1 } },
+      { $group:
+        {
+          _id : "$_id.state",
+          biggestCity:  { $last: "$_id.city" },
+          biggestPop:   { $last: "$pop" },
+          smallestCity: { $first: "$_id.city" },
+          smallestPop:  { $first: "$pop" },
+          totalCity: { $sum: "$totalCity" }
+        }
+      },
+
+      // the following $project is optional, and
+      // modifies the output format.
+      { $project:
+        { _id: 0,
+          state: "$_id",
+          totalCity: "$totalCity",
+          biggestCity:  { name: "$biggestCity",  pop: "$biggestPop" },
+          smallestCity: { name: "$smallestCity", pop: "$smallestPop" },
+        }
+      }
+    ], (err, result) => {
+
       if (err) return reply(err);
 
       return reply(result);
-    })
+    });
   }
 })
 

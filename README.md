@@ -7,6 +7,12 @@ Link บทความ : [ทดลองเขียน Aggregation ใน Mon
 
 - [zipcodes collection](http://media.mongodb.org/zips.json)
 
+## Usage
+
+```
+npm install
+npm start
+```
 
 ## What is Aggregation Pipeline?
 
