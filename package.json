@@ -1,0 +1,9 @@
+{
+  "name": "mongo-aggregate-example",
+  "version": "1.0.0",
+  "dependencies": {
+    "hapi": "^13.4.1",
+    "joi": "^8.4.2",
+    "mongoose": "^4.5.2"
+  }
+}
